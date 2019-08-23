@@ -49,7 +49,7 @@ class DirectMqProducer extends Command
 
         $channel->basic_publish($message, $ex, $r);
 
-        $this->output->success(sprintf('Sent message: [exchange: %s] [routing: %s] - [%s]', $ex, $r, $text));
+        $this->output->success(sprintf('Sent message: [exchange: %s] [routing: %s] - [MSG: %s]', $ex, $r, $text));
 
         $channel->close();
         $connection->close();

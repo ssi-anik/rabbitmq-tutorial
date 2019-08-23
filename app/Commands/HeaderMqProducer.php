@@ -58,7 +58,7 @@ class HeaderMqProducer extends Command
 
         $channel->basic_publish($message, $ex);
 
-        $this->output->success(sprintf('Sent message: [exchange: %s] [headers: %s] - [%s]', $ex, json_encode($headers), $text));
+        $this->output->success(sprintf('Sent message: [exchange: %s] [headers: %s] - [MSG: %s]', $ex, json_encode($headers), $text));
 
         $channel->close();
         $connection->close();

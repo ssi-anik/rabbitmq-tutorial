@@ -43,7 +43,7 @@ class DefaultMqProducer extends Command
         $channel->queue_declare($qn, false, true, false, false);
         $channel->basic_publish($message, '', $qn);
 
-        $this->output->success(sprintf('Sent message: [queue: %s] - [%s]', $qn, $text));
+        $this->output->success(sprintf('Sent message: [queue: %s] - [MSG: %s]', $qn, $text));
 
         $channel->close();
         $connection->close();
