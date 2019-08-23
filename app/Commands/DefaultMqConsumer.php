@@ -33,7 +33,6 @@ class DefaultMqConsumer extends Command
             $this->output->success(sprintf("[queue: %s] - [MSG: %s]", $qn, $msg->body));
         };
 
-        $channel->basic_qos(null, 1, null);
         $channel->basic_consume($qn, '', false, true, false, false, $callback);
 
         $this->output->warning('Waiting for messages [' . $qn . ']');
