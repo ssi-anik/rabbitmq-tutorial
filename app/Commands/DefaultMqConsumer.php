@@ -7,7 +7,7 @@ use LaravelZero\Framework\Commands\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class DefaultMqReceiver extends Command
+class DefaultMqConsumer extends Command
 {
     use AmqpConnectionChannel;
 
@@ -28,10 +28,9 @@ class DefaultMqReceiver extends Command
         /* @var \PhpAmqpLib\Channel\AMQPChannel $channel */
         [ $connection, $channel ] = $this->setup();
         $channel->queue_declare($qn, false, true, false, false);
-        $i = 0;
 
-        $callback = function (AMQPMessage $msg) use (&$i, $qn) {
-            $this->output->success(sprintf("[%'*5d] [queue: %s] - [MSG: %s]", ++$i, $qn, $msg->body));
+        $callback = function (AMQPMessage $msg) use ($qn) {
+            $this->output->success(sprintf("[queue: %s] - [MSG: %s]", $qn, $msg->body));
         };
 
         $channel->basic_qos(null, 1, null);

@@ -8,21 +8,20 @@ use LaravelZero\Framework\Commands\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class DirectMqPublisher extends Command
+class DefaultMqProducer extends Command
 {
     use AmqpConnectionChannel;
 
-    protected $signature = 'direct:publisher {--auto}';
+    protected $signature = 'default:publisher {--auto}';
 
-    protected $description = 'RabbitMQ direct sender';
+    protected $description = 'RabbitMQ default sender';
 
     public function handle () {
         $auto = $this->option('auto');
 
         if (!$auto) {
             $text = trim($this->ask('Write any message: '));
-            $ex = trim($this->ask('Write an exchange name: '));
-            $r = trim($this->ask('Write a routing key: '));
+            $qn = trim($this->ask('Write a queue name: '));
         }
 
         if (empty($text)) {
@@ -32,12 +31,8 @@ class DirectMqPublisher extends Command
             ]);
         }
 
-        if (empty($ex)) {
-            $ex = 'direct.exchange';
-        }
-
-        if (empty($r)) {
-            $r = 'direct.routing.key';
+        if (empty($qn)) {
+            $qn = 'default.exchange.queue';
         }
 
         $message = new AMQPMessage($text, [ 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT ]);
@@ -45,11 +40,10 @@ class DirectMqPublisher extends Command
         /* @var AMQPStreamConnection $connection */
         /* @var \PhpAmqpLib\Channel\AMQPChannel $channel */
         [ $connection, $channel ] = $this->setup();
-        $channel->exchange_declare($ex, 'direct', false, true, false);
+        $channel->queue_declare($qn, false, true, false, false);
+        $channel->basic_publish($message, '', $qn);
 
-        $channel->basic_publish($message, $ex, $r);
-
-        $this->output->success(sprintf('Sent message: [exchange: %s] [routing: %s] - [%s]', $ex, $r, $text));
+        $this->output->success(sprintf('Sent message: [queue: %s] - [%s]', $qn, $text));
 
         $channel->close();
         $connection->close();

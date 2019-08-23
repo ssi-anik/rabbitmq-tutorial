@@ -7,7 +7,7 @@ use LaravelZero\Framework\Commands\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class DirectMqReceiver extends Command
+class DirectMqConsumer extends Command
 {
     use AmqpConnectionChannel;
 

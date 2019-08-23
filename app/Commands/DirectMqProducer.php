@@ -8,20 +8,21 @@ use LaravelZero\Framework\Commands\Command;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class DefaultMqPublisher extends Command
+class DirectMqProducer extends Command
 {
     use AmqpConnectionChannel;
 
-    protected $signature = 'default:publisher {--auto}';
+    protected $signature = 'direct:publisher {--auto}';
 
-    protected $description = 'RabbitMQ default sender';
+    protected $description = 'RabbitMQ direct sender';
 
     public function handle () {
         $auto = $this->option('auto');
 
         if (!$auto) {
             $text = trim($this->ask('Write any message: '));
-            $qn = trim($this->ask('Write a queue name: '));
+            $ex = trim($this->ask('Write an exchange name: '));
+            $r = trim($this->ask('Write a routing key: '));
         }
 
         if (empty($text)) {
@@ -31,8 +32,12 @@ class DefaultMqPublisher extends Command
             ]);
         }
 
-        if (empty($qn)) {
-            $qn = 'default.exchange.queue';
+        if (empty($ex)) {
+            $ex = 'direct.exchange';
+        }
+
+        if (empty($r)) {
+            $r = 'direct.routing.key';
         }
 
         $message = new AMQPMessage($text, [ 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT ]);
@@ -40,10 +45,11 @@ class DefaultMqPublisher extends Command
         /* @var AMQPStreamConnection $connection */
         /* @var \PhpAmqpLib\Channel\AMQPChannel $channel */
         [ $connection, $channel ] = $this->setup();
-        $channel->queue_declare($qn, false, true, false, false);
-        $channel->basic_publish($message, '', $qn);
+        $channel->exchange_declare($ex, 'direct', false, true, false);
 
-        $this->output->success(sprintf('Sent message: [queue: %s] - [%s]', $qn, $text));
+        $channel->basic_publish($message, $ex, $r);
+
+        $this->output->success(sprintf('Sent message: [exchange: %s] [routing: %s] - [%s]', $ex, $r, $text));
 
         $channel->close();
         $connection->close();
