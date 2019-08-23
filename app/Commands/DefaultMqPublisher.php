@@ -44,6 +44,7 @@ class DefaultMqPublisher extends Command
         [ $connection, $channel ] = $this->setup();
         $channel->queue_declare($qn, false, true, false, false);
         $channel->basic_publish($message, '', $qn);
+
         $channel->close();
         $connection->close();
     }
