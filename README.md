@@ -12,8 +12,7 @@ RabbitMQ tutorial for PHP
 
 
 ## Available commands
-**Adding `--auto` to all the following commands will not ask for message, exchange, queue, routing and binding key**
-**Empty values for the prompted questions will fill up data automatically**
+**Adding `--auto` to all the following commands will not ask for message, exchange, queue, routing and binding key. Or empty values for the prompted questions will fill up data automatically.**
  
 - `php artisan default:publisher`
 - `php artisan default:consumer`
