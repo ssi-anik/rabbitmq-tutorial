@@ -12,7 +12,7 @@ class DefaultMqPublisher extends Command
 {
     use AmqpConnectionChannel;
 
-    protected $signature = 'default:sender {--auto}';
+    protected $signature = 'default:publisher {--auto}';
 
     protected $description = 'RabbitMQ default sender';
 

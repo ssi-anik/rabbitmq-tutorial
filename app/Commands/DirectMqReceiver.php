@@ -11,7 +11,7 @@ class DirectMqReceiver extends Command
 {
     use AmqpConnectionChannel;
 
-    protected $signature = 'direct:receiver {--auto}';
+    protected $signature = 'direct:consumer {--auto}';
 
     protected $description = 'RabbitMQ direct receiver';
 

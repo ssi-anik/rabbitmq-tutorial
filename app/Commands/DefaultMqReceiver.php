@@ -11,7 +11,7 @@ class DefaultMqReceiver extends Command
 {
     use AmqpConnectionChannel;
 
-    protected $signature = 'default:receiver {--auto}';
+    protected $signature = 'default:consumer {--auto}';
 
     protected $description = 'RabbitMQ default receiver';
 

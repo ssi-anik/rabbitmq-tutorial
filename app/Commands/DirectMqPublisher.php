@@ -12,7 +12,7 @@ class DirectMqPublisher extends Command
 {
     use AmqpConnectionChannel;
 
-    protected $signature = 'direct:sender {--auto}';
+    protected $signature = 'direct:publisher {--auto}';
 
     protected $description = 'RabbitMQ direct sender';
 
