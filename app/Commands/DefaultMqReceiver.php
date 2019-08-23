@@ -30,8 +30,8 @@ class DefaultMqReceiver extends Command
         $channel->queue_declare($qn, false, true, false, false);
         $i = 0;
 
-        $callback = function (AMQPMessage $msg) use (&$i) {
-            $this->output->success(sprintf("[%'*5d] %s%s", ++$i, $msg->body, PHP_EOL));
+        $callback = function (AMQPMessage $msg) use (&$i, $qn) {
+            $this->output->success(sprintf("[%'*5d] [queue: %s] - [MSG: %s]", ++$i, $qn, $msg->body));
         };
 
         $channel->basic_qos(null, 1, null);

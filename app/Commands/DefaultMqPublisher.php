@@ -37,13 +37,13 @@ class DefaultMqPublisher extends Command
 
         $message = new AMQPMessage($text, [ 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT ]);
 
-
-
         /* @var AMQPStreamConnection $connection */
         /* @var \PhpAmqpLib\Channel\AMQPChannel $channel */
         [ $connection, $channel ] = $this->setup();
         $channel->queue_declare($qn, false, true, false, false);
         $channel->basic_publish($message, '', $qn);
+
+        $this->output->success(sprintf('Sent message: [queue: %s] - [%s]', $qn, $text));
 
         $channel->close();
         $connection->close();
