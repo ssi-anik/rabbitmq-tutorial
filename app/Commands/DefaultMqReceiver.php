@@ -13,7 +13,7 @@ class DefaultMqReceiver extends Command
 
     protected $signature = 'default:receiver';
 
-    protected $description = 'Command description';
+    protected $description = 'RabbitMQ default receiver';
 
     public function handle () {
         $queueName = trim($this->ask('Write a queue name: '));
