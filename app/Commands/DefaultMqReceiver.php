@@ -21,7 +21,7 @@ class DefaultMqReceiver extends Command
         }
 
         if (empty($qn)) {
-            $qn = 'default-exchange-queue';
+            $qn = 'default.exchange.queue';
         }
 
         /* @var AMQPStreamConnection $connection */

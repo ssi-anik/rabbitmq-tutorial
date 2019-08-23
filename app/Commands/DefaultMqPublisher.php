@@ -32,7 +32,7 @@ class DefaultMqPublisher extends Command
         }
 
         if (empty($qn)) {
-            $qn = 'default-exchange-queue';
+            $qn = 'default.exchange.queue';
         }
 
         $message = new AMQPMessage($text, [ 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT ]);
