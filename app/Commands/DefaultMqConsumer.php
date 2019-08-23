@@ -13,7 +13,7 @@ class DefaultMqConsumer extends Command
 
     protected $signature = 'default:consumer {--auto}';
 
-    protected $description = 'RabbitMQ default receiver';
+    protected $description = 'RabbitMQ default consumer';
 
     public function handle () {
         if (!$this->option('auto')) {

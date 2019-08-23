@@ -14,7 +14,7 @@ class DirectMqProducer extends Command
 
     protected $signature = 'direct:publisher {--auto}';
 
-    protected $description = 'RabbitMQ direct sender';
+    protected $description = 'RabbitMQ direct producer';
 
     public function handle () {
         $auto = $this->option('auto');

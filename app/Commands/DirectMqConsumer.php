@@ -13,7 +13,7 @@ class DirectMqConsumer extends Command
 
     protected $signature = 'direct:consumer {--auto}';
 
-    protected $description = 'RabbitMQ direct receiver';
+    protected $description = 'RabbitMQ direct consumer';
 
     public function handle () {
         if (!$this->option('auto')) {

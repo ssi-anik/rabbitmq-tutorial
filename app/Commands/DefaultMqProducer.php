@@ -14,7 +14,7 @@ class DefaultMqProducer extends Command
 
     protected $signature = 'default:publisher {--auto}';
 
-    protected $description = 'RabbitMQ default sender';
+    protected $description = 'RabbitMQ default producer';
 
     public function handle () {
         $auto = $this->option('auto');
