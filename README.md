@@ -1,4 +1,4 @@
-RabbitMQ tutorial for PHP
+RabbitMQ tutorial for anik/amqp
 ---
 
 ## Installation
@@ -14,16 +14,10 @@ RabbitMQ tutorial for PHP
 ## Available commands
 **Adding `--auto` to all the following commands will not ask for message, exchange, queue, routing and binding key. Or empty values for the prompted questions will fill up data automatically.**
  
-- `php artisan default:publisher`
-- `php artisan default:consumer`
+- `php artisan amqp:publisher:dynamic`
+- `php artisan amqp:publisher:class`
+- `php artisan amqp:publisher:class:headers` (Sends headers to message)
 
-- `php artisan direect:publisher`
-- `php artisan direect:consumer`
-
-- `php artisan direct:consumer:qos`
-
-- `php artisan topic:publisher`
-- `php artisan topic:consumer`
-
-- `php artisan header:publisher`
-- `php artisan header:consumer`
+- `php artisan amqp:consumer:closure`
+- `php artisan amqp:consumer:class`
+- `php artisan amqp:consumer:closure:headers`

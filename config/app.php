@@ -54,6 +54,7 @@ return [
 
     'providers' => [
         App\Providers\AppServiceProvider::class,
+        Anik\Amqp\ServiceProviders\AmqpServiceProvider::class,
     ],
 
 ];
