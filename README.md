@@ -20,4 +20,4 @@ RabbitMQ tutorial for anik/amqp
 
 - `php artisan amqp:consumer:closure`
 - `php artisan amqp:consumer:class`
-- `php artisan amqp:consumer:closure:headers`
+- `php artisan amqp:consumer:closure:headers` (Logs headers from message)
